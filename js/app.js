@@ -21,6 +21,11 @@ class Budget {
         this.expense = [];
     }
 
+    newExpense(expense) {
+        this.expense = [...this.expense, expense];
+        console.log(this.expense);
+    }
+
 }
 
 class UI {
@@ -75,7 +80,7 @@ function addBudget(e) {
     e.preventDefault();
 
     const name = document.querySelector('#gasto').value;
-    const amount = document.querySelector('#cantidad').value;
+    const amount = Number(document.querySelector('#cantidad').value);
 
     if (name === '' || amount === '') {
         ui.showAlert('Campos vacíos', 'error');
@@ -85,6 +90,14 @@ function addBudget(e) {
         return;
     }
 
-    console.log('Agregando gasto...');
+    //Object literal
+    const expense = { name, amount, id: Date.now() };
+    budget.newExpense(expense);
+
+    //Alert success
+    ui.showAlert('Gasto agregado');
+
+    //Form content reset
+    form.reset();
 
 }
