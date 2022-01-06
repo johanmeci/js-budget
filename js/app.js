@@ -18,12 +18,11 @@ class Budget {
     constructor(budget) {
         this.budget = Number(budget);
         this.rest = Number(budget);
-        this.expense = [];
+        this.expenses = [];
     }
 
     newExpense(expense) {
-        this.expense = [...this.expense, expense];
-        console.log(this.expense);
+        this.expenses = [...this.expenses, expense];
     }
 
 }
@@ -52,6 +51,44 @@ class UI {
         setTimeout(() => {
             divAlert.remove();
         }, 2500);
+    }
+
+    showExpensesList(expenses) {
+
+        this.cleanHTML();
+        
+        expenses.forEach(expense => {
+
+            const { name, amount, id } = expense;
+
+            //Create li
+            const liExpense = document.createElement('li');
+            liExpense.className = 'list-group-item d-flex justify-content-between align-items-center';
+            liExpense.dataset.id = id;
+
+            //Add li in HTML
+            liExpense.innerHTML = `${name} 
+            <span class='badge badge-primary badge-pill'>$${amount}</span>
+            `;
+
+            //Button delete
+            const btnDelete = document.createElement('button');
+            btnDelete.classList.add('btn', 'btn-danger', 'borrar-gasto');
+            btnDelete.textContent = 'Borrar x';
+
+            liExpense.appendChild(btnDelete);
+
+            //Add button in HTML
+            list.appendChild(liExpense);
+
+        });
+
+    }
+
+    cleanHTML(){
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
     }
 
 }
@@ -96,6 +133,10 @@ function addBudget(e) {
 
     //Alert success
     ui.showAlert('Gasto agregado');
+
+    //Show expenses
+    const { expenses } = budget;
+    ui.showExpensesList(expenses);
 
     //Form content reset
     form.reset();
