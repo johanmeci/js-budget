@@ -29,8 +29,13 @@ class Budget {
     getRest() {
         const currentExpenses = this.expenses.reduce( (total, expense) => total + expense.amount, 0 );
         this.rest = this.budget - currentExpenses;
+    }
 
-        console.log(this.rest);
+    deleteExpense(id) {
+        
+        this.expenses = this.expenses.filter(expense => expense.id !== id);
+        this.getRest();
+
     }
 
 }
@@ -83,8 +88,12 @@ class UI {
             const btnDelete = document.createElement('button');
             btnDelete.classList.add('btn', 'btn-danger', 'borrar-gasto');
             btnDelete.textContent = 'Borrar x';
-
+            btnDelete.onclick = () => {
+                deleteExpense(id)
+            }
             liExpense.appendChild(btnDelete);
+
+
 
             //Add button in HTML
             list.appendChild(liExpense);
@@ -118,6 +127,9 @@ class UI {
             restDiv.classList.remove('alert-success');
             restDiv.classList.add('alert-warning');
 
+        } else {
+            restDiv.classList.remove('alert-danger', 'alert-warning');
+            restDiv.classList.add('alert-success');
         }
 
         if (rest <= 0) {
@@ -181,4 +193,15 @@ function addBudget(e) {
     //Form content reset
     form.reset();
 
+}
+
+function deleteExpense(id) {
+    //Delete from class
+    budget.deleteExpense(id);
+
+    //Delete from HTML
+    const { expenses, rest } = budget;
+    ui.showExpensesList(expenses);
+    ui.updateRest(rest);
+    ui.checkBudget(budget);
 }
