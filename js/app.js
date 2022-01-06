@@ -103,6 +103,30 @@ class UI {
         document.querySelector('#restante').textContent = rest;
     }
 
+    checkBudget(objBudget) {
+
+        const { budget, rest } = objBudget;
+        const restDiv = document.querySelector('.restante');
+
+        if ((budget / 4) > rest) {
+
+            restDiv.classList.remove('alert-success', 'alert-warning');
+            restDiv.classList.add('alert-danger');
+
+        } else if((budget / 2) > rest) {
+
+            restDiv.classList.remove('alert-success');
+            restDiv.classList.add('alert-warning');
+
+        }
+
+        if (rest <= 0) {
+            ui.showAlert('Presupuesto agotado', 'error');
+            form.querySelector('button[type="submit"]').disabled = true;
+        }
+
+    }
+
 }
 
 const ui = new UI();
@@ -113,7 +137,7 @@ function getBudget() {
 
     // const userBudget = prompt('Cuál es tu presupuesto?');
 
-    const userBudget = 1200;
+    const userBudget = 500;
 
     if (userBudget === '' || userBudget === null || isNaN(userBudget) || userBudget <= 0) {
         window.location.reload();
@@ -151,6 +175,8 @@ function addBudget(e) {
     ui.showExpensesList(expenses);
     
     ui.updateRest(rest);
+
+    ui.checkBudget(budget);
 
     //Form content reset
     form.reset();
