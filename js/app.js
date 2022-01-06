@@ -23,6 +23,14 @@ class Budget {
 
     newExpense(expense) {
         this.expenses = [...this.expenses, expense];
+        this.getRest();
+    }
+
+    getRest() {
+        const currentExpenses = this.expenses.reduce( (total, expense) => total + expense.amount, 0 );
+        this.rest = this.budget - currentExpenses;
+
+        console.log(this.rest);
     }
 
 }
@@ -68,7 +76,7 @@ class UI {
 
             //Add li in HTML
             liExpense.innerHTML = `${name} 
-            <span class='badge badge-primary badge-pill'>$${amount}</span>
+            <span class='badge badge-primary badge-pill'>$ ${amount}</span>
             `;
 
             //Button delete
@@ -89,6 +97,10 @@ class UI {
         while (list.firstChild) {
             list.removeChild(list.firstChild);
         }
+    }
+
+    updateRest(rest) {
+        document.querySelector('#restante').textContent = rest;
     }
 
 }
@@ -135,8 +147,10 @@ function addBudget(e) {
     ui.showAlert('Gasto agregado');
 
     //Show expenses
-    const { expenses } = budget;
+    const { expenses, rest } = budget;
     ui.showExpensesList(expenses);
+    
+    ui.updateRest(rest);
 
     //Form content reset
     form.reset();
