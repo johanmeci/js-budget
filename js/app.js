@@ -83,13 +83,13 @@ class UI {
 
             //Add li in HTML
             liExpense.innerHTML = `${name} 
-            <span class='badge badge-primary badge-pill'>$ ${amount}</span>
+            <span class='badge badge-primary badge-pill'>$${amount}</span>
             `;
 
             //Button delete
             const btnDelete = document.createElement('button');
             btnDelete.classList.add('btn', 'btn-danger', 'borrar-gasto');
-            btnDelete.textContent = 'Borrar x';
+            btnDelete.innerHTML = "<img class='icon-remove' src='/img/remove.svg' />";
             btnDelete.onclick = () => {
                 deleteExpense(id)
             }
