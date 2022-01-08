@@ -71,36 +71,44 @@ class UI {
     showExpensesList(expenses) {
 
         this.cleanHTML();
-        
-        expenses.forEach(expense => {
 
-            const { name, amount, id } = expense;
+        if (expenses.length > 0) {
+            
+            list.classList.add('active');
+            
+            expenses.forEach(expense => {
 
-            //Create li
-            const liExpense = document.createElement('li');
-            liExpense.className = 'list-group-item d-flex justify-content-between align-items-center';
-            liExpense.dataset.id = id;
+                const { name, amount, id } = expense;
 
-            //Add li in HTML
-            liExpense.innerHTML = `${name} 
-            <span class='badge badge-primary badge-pill'>$${amount}</span>
-            `;
+                //Create li
+                const liExpense = document.createElement('li');
+                liExpense.className = 'list-group-item d-flex justify-content-between align-items-center';
+                liExpense.dataset.id = id;
 
-            //Button delete
-            const btnDelete = document.createElement('button');
-            btnDelete.classList.add('btn', 'btn-danger', 'borrar-gasto');
-            btnDelete.innerHTML = "<img class='icon-remove' src='/img/remove.svg' />";
-            btnDelete.onclick = () => {
-                deleteExpense(id)
-            }
-            liExpense.appendChild(btnDelete);
+                //Add li in HTML
+                liExpense.innerHTML = `${name} 
+                <span class='badge badge-primary badge-pill'>$${amount}</span>
+                `;
+
+                //Button delete
+                const btnDelete = document.createElement('button');
+                btnDelete.classList.add('btn', 'btn-danger', 'borrar-gasto');
+                btnDelete.innerHTML = "<img class='icon-remove' src='/img/remove.svg' />";
+                btnDelete.onclick = () => {
+                    deleteExpense(id)
+                }
+                liExpense.appendChild(btnDelete);
 
 
 
-            //Add button in HTML
-            list.appendChild(liExpense);
+                //Add button in HTML
+                list.appendChild(liExpense);
 
-        });
+            });
+
+        } else {
+            list.classList.remove('active');
+        }
 
     }
 

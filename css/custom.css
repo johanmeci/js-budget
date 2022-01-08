@@ -112,6 +112,8 @@ form .btn {
     background: linear-gradient(to right, var(--primary-color), var(--dark-color));
     border: none;
     width: 100px;
+    display: block;
+    margin-left: auto;
 }
 
 form .btn:active {
@@ -125,6 +127,11 @@ form .btn:active {
     height: auto;
     max-height: 215px;
     overflow-y: scroll;
+    display: none;
+}
+
+.contenido-principal .contenido.secundario ul.active {
+    display: block;
 }
 
 .contenido-principal .contenido.secundario ul::-webkit-scrollbar {
