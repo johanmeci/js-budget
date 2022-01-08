@@ -3,6 +3,7 @@ const form = document.querySelector('#agregar-gasto');
 const list = document.querySelector('#gastos ul');
 
 
+
 //Events
 eventListeners();
 function eventListeners() {
@@ -10,6 +11,7 @@ function eventListeners() {
 
     form.addEventListener('submit', addBudget);
 }
+
 
 
 //Class
@@ -143,6 +145,8 @@ class UI {
 
 const ui = new UI();
 let budget;
+
+
 
 //Functions
 function getBudget() {
